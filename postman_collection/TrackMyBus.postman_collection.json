@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "a553fc78-348e-407f-9997-462f48ff1d27",
+		"name": "TrackMyBus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17324388"
+	},
+	"item": [
+		{
+			"name": "Buses",
+			"item": [
+				{
+					"name": "Bus-data",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "busId",
+								"value": "633ddfd3907727105354d8c7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}tmb/getBus",
+							"host": [
+								"{{localhost}}tmb"
+							],
+							"path": [
+								"getBus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add-Bus",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"bus\": \"bus1\",\r\n      \"busNumber\":232,\r\n      \"startName\": \"Haryana\",\r\n      \"sLat\": 23.10,\r\n      \"sLng\": 24.10,\r\n      \"destName\": \"Uttar Pradesh\",\r\n      \"dLat\": 28.09,\r\n      \"dLng\": 28.10\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}tmb/postBus",
+							"host": [
+								"{{localhost}}tmb"
+							],
+							"path": [
+								"postBus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bus-Stops",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "busId",
+								"value": "633dbd6e20bc4151737c19fe",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}tmb/getBusStops",
+							"host": [
+								"{{localhost}}tmb"
+							],
+							"path": [
+								"getBusStops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Bus",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "busId",
+								"value": "633ddfd3907727105354d8c7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"bus\": \"HU1\",\r\n      \"busNumber\":232,\r\n      \"startName\": \"Haryana\",\r\n      \"sLat\": 23.10,\r\n      \"sLng\": 24.10,\r\n      \"destName\": \"Uttar Pradesh\",\r\n      \"dLat\": 28.09,\r\n      \"dLng\": 28.10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}tmb/updateBus",
+							"host": [
+								"{{localhost}}tmb"
+							],
+							"path": [
+								"updateBus"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Stops",
+			"item": [
+				{
+					"name": "Get-Stops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}tmb/getStops",
+							"host": [
+								"{{localhost}}tmb"
+							],
+							"path": [
+								"getStops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add-Stops",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stopName\":\"Chandigarh\",\r\n    \"lat\": 24.13,\r\n    \"lng\": 24.03,\r\n    \"busses\": [\r\n       \"633dbd6e20bc4151737c19fe\"\r\n    ],\r\n    \"state\":\"Haryana\",\r\n    \"city\":\"Chandigarh\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}tmb/postStops",
+							"host": [
+								"{{localhost}}tmb"
+							],
+							"path": [
+								"postStops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update-Stops",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "stopId",
+								"value": "633e8fc6b7eebea86c464881",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stopName\":\"Delhi\",\r\n    \"city\":\"Rohtak\",\r\n    \"state\":\"Haryana\",\r\n    \"busses\":[\r\n        \"633ddfd3907727105354d8c7\",\r\n        \"633dbd6e20bc4151737c19fe\"\r\n       \r\n    ]\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}tmb/updateStops",
+							"host": [
+								"{{localhost}}tmb"
+							],
+							"path": [
+								"updateStops"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localhost",
+			"value": "localhost:5000/",
+			"type": "string"
+		}
+	]
+}

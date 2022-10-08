@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
-const Bus = require("../../model/getBusModel");
-const Stops = require("../../model/getStopsModel");
+const Bus = require("../../model/Bus");
+const Stops = require("../../model/Stops");
 
 //api endpoint go post the location to the server
 
@@ -31,16 +31,16 @@ const addBusData = asyncHandler(async (req, res) => {
 
 //post function
 const getBusData = asyncHandler(async (req, res) => {
-  const { bus } = req.body;
+  let busId = req.get("busId");
 
-  const data = await Bus.findOne({ bus: bus });
+  const data = await Bus.findOne({ _id: busId });
 
   res.json({ data: [data] });
 });
 
 //get function
 const getStopsData = asyncHandler(async (req, res) => {
-  const data = await Stops.find();
+  const data = await Stops.find().populate("busses");
 
   res.json({ data: data });
 });
@@ -48,24 +48,27 @@ const getStopsData = asyncHandler(async (req, res) => {
 //post function
 
 const addStopsData = asyncHandler(async (req, res) => {
-  const { stopName, lat, lng, busses } = req.body;
+  const { stopName, lat, lng, busses, city, state } = req.body;
 
   data = await Stops.create({
     stopName: stopName,
     lat: lat,
     lng: lng,
     busses: busses,
+    city: city,
+    state: state
   });
 
   res.json({ data: data });
 });
 
 const updateStopsData = asyncHandler(async (req, res) => {
-  const { stopName, busName } = req.body;
+  let stopId = req.get("stopId");
+  const { stopName, city, state, busses } = req.body;
 
   data = await Stops.findOneAndUpdate(
-    { stopName: stopName },
-    { $push: { busses: { name: busName } } },
+    { _id: stopId },
+    { $set: { "stopName": stopName, "city": city, "state": state, "busses": busses } },
     { new: true }
   );
 
@@ -73,12 +76,25 @@ const updateStopsData = asyncHandler(async (req, res) => {
 });
 
 const busStops = asyncHandler(async (req, res) => {
-  const { bus } = req.body;
+  let busId = req.get("busId");
 
-  const data = await Stops.find({ busses: { $elemMatch: { name: bus } } });
+  const data = await Stops.find({ busses: busId });
 
   res.json({ data: data });
 });
+
+const updateBusData = asyncHandler(async (req, res) => {
+  let busId = req.get("busId");
+  const { bus, startName, sLat, sLng, destName, dLat, dLng, busNumber } = req.body;
+
+  data = await Bus.findOneAndUpdate(
+    { _id: busId },
+    { $set: { "bus": bus, "startName": startName, "sLat": sLat, "sLng": sLng, "destName": destName, "dLat": dLat, "dLng": dLng, "busNumber": busNumber } },
+    { new: true }
+  );
+
+  res.json({ data: data });
+})
 
 module.exports = {
   busStops,
@@ -87,4 +103,5 @@ module.exports = {
   getBusData,
   getStopsData,
   addStopsData,
+  updateBusData
 };
